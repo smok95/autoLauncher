@@ -22,4 +22,5 @@ require (
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c // indirect
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	golang.org/x/sys v0.2.0 // indirect
+	gopkg.in/ini.v1 v1.67.0
 )
