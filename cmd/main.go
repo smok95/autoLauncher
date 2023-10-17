@@ -3,10 +3,12 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/getlantern/systray"
 	"github.com/getlantern/systray/example/icon"
-	autolauncher "github.com/smok95/autoLauncher"
+	autolauncher "github.com/smok95/autoLauncher/pkg/autolauncher"
 	"gopkg.in/ini.v1"
 )
 
@@ -49,7 +51,15 @@ func onExit() {
 }
 
 func ReadConfig() *autolauncher.Options {
-	cfg, err := ini.Load("config.ini")
+	appPath, err := os.Executable()
+	if err != nil {
+		log.Fatalf("실행 경로 확인 실패: %v", err)
+		return nil
+	}
+
+	// 실행 경로에서 config.ini 파일 경로 추출
+	configPath := filepath.Join(filepath.Dir(appPath), "config.ini")
+	cfg, err := ini.Load(configPath)
 	if err != nil {
 		log.Fatalf("INI 파일 로드 실패: %v", err)
 		return nil
